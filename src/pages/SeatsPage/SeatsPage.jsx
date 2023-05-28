@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import axios from "axios";
+import Submit from "../../components/Submit";
 
 export default function SeatsPage() {
   const { idSessao } = useParams();
@@ -9,6 +10,7 @@ export default function SeatsPage() {
   const [movie, setMovie] = useState([]);
   const [session, setSession] = useState([]);
   const [day, setDay] = useState("");
+  const [date, setDate] = useState("");
   const [selected, setSelected] = useState([]);
 
   useEffect(() => {
@@ -17,12 +19,11 @@ export default function SeatsPage() {
     );
     request.then((response) => {
       setMovie(response.data.movie);
-      console.log(response.data.movie);
       setSession(response.data);
       console.log(response.data);
       setDay(response.data.day.weekday);
+      setDate(response.data.day.date);
       setSeats(response.data.seats);
-      console.log(response.data.seats);
     });
   }, []);
 
@@ -69,13 +70,12 @@ export default function SeatsPage() {
           Indisponível
         </CaptionItem>
       </CaptionContainer>
-      <FormContainer>
-        Nome do Comprador:
-        <input placeholder="Digite seu nome..." />
-        CPF do Comprador:
-        <input placeholder="Digite seu CPF..." />
-        <button>Reservar Assento(s)</button>
-      </FormContainer>
+      <Submit
+        selected={selected}
+        date={date}
+        movie={movie.title}
+        session={session.name}
+      />
       <FooterContainer>
         <div>
           <img src={movie.posterURL} alt="poster" />
@@ -112,20 +112,7 @@ const SeatsContainer = styled.div`
   justify-content: center;
   margin-top: 20px;
 `;
-const FormContainer = styled.div`
-  width: calc(100vw - 40px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 20px 0;
-  font-size: 18px;
-  button {
-    align-self: center;
-  }
-  input {
-    width: calc(100vw - 60px);
-  }
-`;
+
 const CaptionContainer = styled.div`
   display: flex;
   flex-direction: row;
