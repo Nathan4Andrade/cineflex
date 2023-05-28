@@ -6,7 +6,6 @@ import axios from "axios";
 export default function SessionsPage() {
   const [movie, setMovie] = useState([]);
   const [days, setDays] = useState([]);
-  const [times, setTimes] = useState([]);
 
   const { idFilme } = useParams();
   console.log(idFilme);
@@ -19,8 +18,6 @@ export default function SessionsPage() {
       setMovie(response.data);
       setDays(response.data.days);
       console.log(response.data.days);
-      setTimes(response.data.days.showtimes);
-      console.log(response.data.days[0].showtimes);
     });
   }, []);
 
