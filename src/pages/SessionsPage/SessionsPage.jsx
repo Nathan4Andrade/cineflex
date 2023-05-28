@@ -18,6 +18,7 @@ export default function SessionsPage() {
       setMovie(response.data);
       setDays(response.data.days);
       console.log(response.data.days);
+      console.log(response.data.days[0].showtimes);
     });
   }, []);
 
@@ -32,9 +33,9 @@ export default function SessionsPage() {
                 {day.weekday} - {day.date}
               </p>
               <ButtonsContainer>
-                {day.showtimes.map((hour) => (
-                  <Link key={hour.id} to={`/assentos/${hour.id}`}>
-                    <button>{hour.name}</button>
+                {day.showtimes.map((time) => (
+                  <Link key={time.id} to={`/assentos/${time.id}`}>
+                    <button>{time.name}</button>
                   </Link>
                 ))}
               </ButtonsContainer>
