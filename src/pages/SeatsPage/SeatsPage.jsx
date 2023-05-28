@@ -1,50 +1,71 @@
-import { useAsyncError, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import axios from "axios";
 
 export default function SeatsPage() {
   const { idSessao } = useParams();
-  console.log(idSessao);
-
-  const url = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`;
-  const [assentos, setAssentos] = useState([]);
+  const [seats, setSeats] = useState([]);
   const [movie, setMovie] = useState([]);
   const [session, setSession] = useState([]);
   const [day, setDay] = useState("");
+  const [selected, setSelected] = useState([]);
 
   useEffect(() => {
-    const request = axios.get(url);
+    const request = axios.get(
+      `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`
+    );
     request.then((response) => {
       setMovie(response.data.movie);
       console.log(response.data.movie);
       setSession(response.data);
       console.log(response.data);
       setDay(response.data.day.weekday);
+      setSeats(response.data.seats);
+      console.log(response.data.seats);
     });
   }, []);
+
+  const selectSeat = (seat) => {
+    if (!seat.isAvailable) {
+      alert("Assento indisponível");
+      return;
+    }
+    setSelected((oldSelected) => {
+      if (oldSelected.some((select) => select.id === seat.id)) {
+        return oldSelected.filter((select) => select.id !== seat.id);
+      } else {
+        return [...oldSelected, seat];
+      }
+    });
+  };
 
   return (
     <PageContainer>
       Selecione o(s) assento(s)
       <SeatsContainer>
-        <SeatItem>01</SeatItem>
-        <SeatItem>02</SeatItem>
-        <SeatItem>03</SeatItem>
-        <SeatItem>04</SeatItem>
-        <SeatItem>05</SeatItem>
+        {seats.map((seat) => (
+          <SeatItem
+            key={seat.id}
+            disabled={!seat.isAvailable}
+            isAvailable={seat.isAvailable}
+            onClick={() => selectSeat(seat)}
+            isSelected={selected.some((select) => select.id === seat.id)}>
+            {seat.name}
+          </SeatItem>
+        ))}
       </SeatsContainer>
       <CaptionContainer>
         <CaptionItem>
-          <CaptionCircle />
+          <CaptionCircle isSelected={true} />
           Selecionado
         </CaptionItem>
         <CaptionItem>
-          <CaptionCircle />
+          <CaptionCircle isAvailable={true} />
           Disponível
         </CaptionItem>
         <CaptionItem>
-          <CaptionCircle />
+          <CaptionCircle isAvailable={false} />
           Indisponível
         </CaptionItem>
       </CaptionContainer>
@@ -113,8 +134,9 @@ const CaptionContainer = styled.div`
   margin: 20px;
 `;
 const CaptionCircle = styled.div`
-  border: 1px solid blue; // Essa cor deve mudar
-  background-color: lightblue; // Essa cor deve mudar
+  border: ${({ isAvailable }) => (isAvailable ? "#7B8B99" : "#F7C52B")};
+  background-color: ${({ isAvailable }) =>
+    isAvailable ? "#C3CFD9" : "#FBE192"};
   height: 25px;
   width: 25px;
   border-radius: 25px;
@@ -122,6 +144,12 @@ const CaptionCircle = styled.div`
   align-items: center;
   justify-content: center;
   margin: 5px 3px;
+  ${({ isSelected }) =>
+    isSelected &&
+    css`
+      border: 1px solid #0e7d71;
+      background-color: #1aae9e;
+    `}
 `;
 const CaptionItem = styled.div`
   display: flex;
@@ -130,8 +158,10 @@ const CaptionItem = styled.div`
   font-size: 12px;
 `;
 const SeatItem = styled.div`
-  border: 1px solid blue; // Essa cor deve mudar
-  background-color: lightblue; // Essa cor deve mudar
+  border: 1px solid
+    ${({ isAvailable }) => (isAvailable ? "#7B8B99" : "#F7C52B")};
+  background-color: ${({ isAvailable }) =>
+    isAvailable ? "#C3CFD9" : "#FBE192"};
   height: 25px;
   width: 25px;
   border-radius: 25px;
@@ -141,6 +171,12 @@ const SeatItem = styled.div`
   align-items: center;
   justify-content: center;
   margin: 5px 3px;
+  ${({ isSelected }) =>
+    isSelected &&
+    css`
+      border: 1px solid #0e7d71;
+      background-color: #1aae9e;
+    `}
 `;
 const FooterContainer = styled.div`
   width: 100%;
