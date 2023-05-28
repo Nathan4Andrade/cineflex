@@ -30,7 +30,7 @@ export default function Submit(props) {
     );
 
     promise.then(() => {
-      navigate("/", {
+      navigate("/sucesso", {
         state: { date, seats, name, cpf, movie, session },
       });
     });
@@ -39,7 +39,7 @@ export default function Submit(props) {
   return (
     <FormContainer onSubmit={handleSubmit}>
       <label htmlFor="name">Nome do Comprador:</label>
-      <input
+      <Input
         type="text"
         id="name"
         value={name}
@@ -48,7 +48,7 @@ export default function Submit(props) {
         required
       />
       <label htmlFor="cpf">CPF do Comprador:</label>
-      <input
+      <Input
         type="text"
         id="cpf"
         value={cpf}
@@ -61,6 +61,28 @@ export default function Submit(props) {
     </FormContainer>
   );
 }
+
+const Input = styled.input`
+  width: 327px;
+  height: 51px;
+  left: 24px;
+  top: 580px;
+
+  background: #ffffff;
+  border: 1px solid #d5d5d5;
+  border-radius: 3px;
+
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  color: #afafaf;
+
+  padding-left: 18px;
+`;
 
 const ReservarBtn = styled.button`
   font-family: "Roboto";
