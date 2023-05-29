@@ -47,6 +47,7 @@ export default function SeatsPage() {
       <SeatsContainer>
         {seats.map((seat) => (
           <SeatItem
+            data-test="seat"
             key={seat.id}
             disabled={!seat.isAvailable}
             isAvailable={seat.isAvailable}
@@ -76,7 +77,7 @@ export default function SeatsPage() {
         movie={movie.title}
         session={session.name}
       />
-      <FooterContainer>
+      <FooterContainer data-test="footer">
         <div>
           <img src={movie.posterURL} alt="poster" />
         </div>

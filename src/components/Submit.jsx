@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
@@ -38,8 +37,9 @@ export default function Submit(props) {
 
   return (
     <FormContainer onSubmit={handleSubmit}>
-      <label htmlFor="name">Nome do Comprador:</label>
+      <Label htmlFor="name">Nome do Comprador:</Label>
       <Input
+        data-test="client-name"
         type="text"
         id="name"
         value={name}
@@ -47,8 +47,9 @@ export default function Submit(props) {
         placeholder="Digite seu nome..."
         required
       />
-      <label htmlFor="cpf">CPF do Comprador:</label>
+      <Label htmlFor="cpf">CPF do Comprador:</Label>
       <Input
+        data-test="client-cpf"
         type="text"
         id="cpf"
         value={cpf}
@@ -57,17 +58,19 @@ export default function Submit(props) {
         placeholder="Digite seu CPF..."
         required
       />
-      <ReservarBtn type="submit">Reservar Assento(s)</ReservarBtn>
+      <ReservarBtn data-test="book-seat-btn" type="submit">
+        Reservar Assento(s)
+      </ReservarBtn>
     </FormContainer>
   );
 }
 
+const Label = styled.label`
+  margin-top: 7px;
+`;
 const Input = styled.input`
   width: 327px;
   height: 51px;
-  left: 24px;
-  top: 580px;
-
   background: #ffffff;
   border: 1px solid #d5d5d5;
   border-radius: 3px;
@@ -92,6 +95,7 @@ const ReservarBtn = styled.button`
   border: none;
   width: 225px;
   height: 42px;
+  margin-top: 57px;
 `;
 
 const FormContainer = styled.form`
@@ -104,6 +108,7 @@ const FormContainer = styled.form`
   button {
     align-self: center;
     margin: auto;
+    margin-top: 57px;
   }
   input {
     width: calc(100vw - 60px);

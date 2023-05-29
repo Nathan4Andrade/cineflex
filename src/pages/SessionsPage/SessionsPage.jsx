@@ -28,14 +28,17 @@ export default function SessionsPage() {
       <div>
         <SessionContainer>
           {days.map((day) => (
-            <div key={day.id}>
+            <div data-test="movie-day" key={day.id}>
               <p>
                 {day.weekday} - {day.date}
               </p>
               <ButtonsContainer>
                 {day.showtimes.map((time) => (
-                  <Link key={time.id} to={`/assentos/${time.id}`}>
-                    <button>{time.name}</button>
+                  <Link
+                    data-test="showtime"
+                    key={time.id}
+                    to={`/assentos/${time.id}`}>
+                    <Btn>{time.name}</Btn>
                   </Link>
                 ))}
               </ButtonsContainer>
@@ -43,7 +46,7 @@ export default function SessionsPage() {
           ))}
         </SessionContainer>
       </div>
-      <FooterContainer>
+      <FooterContainer data-test="footer">
         <div>
           <img src={movie.posterURL} alt="poster" />
         </div>
@@ -54,6 +57,25 @@ export default function SessionsPage() {
     </PageContainer>
   );
 }
+
+const Btn = styled.button`
+  width: 83px;
+  height: 43px;
+
+  background: #e8833a;
+  border-radius: 3px;
+  border: none;
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: 0.02em;
+
+  color: #ffffff;
+`;
 
 const PageContainer = styled.div`
   display: flex;

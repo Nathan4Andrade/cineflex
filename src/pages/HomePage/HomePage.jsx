@@ -19,7 +19,13 @@ export default function HomePage() {
   }, []);
 
   if (movies === null) {
-    return <img src={loading} />;
+    return (
+      <PageContainer>
+        <ListContainer>
+          <Imagem src={loading} />
+        </ListContainer>{" "}
+      </PageContainer>
+    );
   }
 
   return (
@@ -27,7 +33,7 @@ export default function HomePage() {
       Selecione o filme
       <ListContainer>
         {movies.map((movie) => (
-          <Link key={movie.id} to={`/sessoes/${movie.id}`}>
+          <Link data-test="movie" key={movie.id} to={`/sessoes/${movie.id}`}>
             <MovieContainer>
               <img src={`${movie.posterURL}`} />
             </MovieContainer>
@@ -37,6 +43,10 @@ export default function HomePage() {
     </PageContainer>
   );
 }
+
+const Imagem = styled.img`
+  margin: 0 auto;
+`;
 
 const PageContainer = styled.div`
   display: flex;
