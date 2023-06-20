@@ -37,7 +37,6 @@ export default function Submit(props) {
 
   return (
     <FormContainer onSubmit={handleSubmit}>
-      <Label htmlFor="name">Nome do Comprador:</Label>
       <Input
         data-test="client-name"
         type="text"
@@ -47,7 +46,7 @@ export default function Submit(props) {
         placeholder="Digite seu nome..."
         required
       />
-      <Label htmlFor="cpf">CPF do Comprador:</Label>
+
       <Input
         data-test="client-cpf"
         type="text"
@@ -65,15 +64,11 @@ export default function Submit(props) {
   );
 }
 
-const Label = styled.label`
-  margin-top: 7px;
-`;
 const Input = styled.input`
   width: 327px;
   height: 51px;
-  background: #ffffff;
-  border: 1px solid #d5d5d5;
-  border-radius: 3px;
+
+  user-select: none;
 
   font-family: "Roboto";
   font-style: italic;
@@ -83,6 +78,7 @@ const Input = styled.input`
   display: flex;
   align-items: center;
   color: #afafaf;
+  resize: none;
 
   padding-left: 18px;
 `;
@@ -99,10 +95,11 @@ const ReservarBtn = styled.button`
 `;
 
 const FormContainer = styled.form`
-  width: calc(100vw - 40px);
+  /*   width: calc(100vw - 40px); */
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   margin: 20px 0;
   font-size: 18px;
   button {
@@ -111,6 +108,6 @@ const FormContainer = styled.form`
     margin-top: 57px;
   }
   input {
-    width: calc(100vw - 60px);
+    /*  width: calc(100vw - 60px); */
   }
 `;

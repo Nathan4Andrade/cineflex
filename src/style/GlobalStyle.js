@@ -1,6 +1,10 @@
-import { createGlobalStyle } from "styled-components"
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+body {
+	background-color: #222222;
+	color: #E5E5E5;
+}
 	button {
 		height: 43px;
 		background: #E8833A;
@@ -19,9 +23,11 @@ const GlobalStyle = createGlobalStyle`
 		}
 	}
 	input {
-		background: #FFFFFF;
-		border: 1px solid #D5D5D5;
-		border-radius: 3px;
+		background: transparent;
+		border: none;
+	
+		border-bottom: 1px solid #D5D5D5;
+		width: 327px;
 		height: 50px;
 		margin-bottom: 25px;
 		margin-top: 10px;
@@ -35,6 +41,6 @@ const GlobalStyle = createGlobalStyle`
 		}
 		
 	}
-`
+`;
 
-export default GlobalStyle
+export default GlobalStyle;

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import loading from "../../assets/loading.gif";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { RotatingLines } from "react-loader-spinner";
 
 export default function HomePage() {
   const [movies, setMovies] = useState(null);
@@ -22,8 +22,16 @@ export default function HomePage() {
     return (
       <PageContainer>
         <ListContainer>
-          <Imagem src={loading} />
-        </ListContainer>{" "}
+          <Imagem>
+            <RotatingLines
+              strokeColor="grey"
+              strokeWidth="5"
+              animationDuration="0.75"
+              width="96"
+              visible={true}
+            />
+          </Imagem>
+        </ListContainer>
       </PageContainer>
     );
   }
@@ -36,6 +44,7 @@ export default function HomePage() {
           <Link data-test="movie" key={movie.id} to={`/sessoes/${movie.id}`}>
             <MovieContainer>
               <img src={`${movie.posterURL}`} />
+              <p>{movie.title}</p>
             </MovieContainer>
           </Link>
         ))}
@@ -44,8 +53,9 @@ export default function HomePage() {
   );
 }
 
-const Imagem = styled.img`
+const Imagem = styled.div`
   margin: 0 auto;
+  margin-top: 100px;
 `;
 
 const PageContainer = styled.div`
@@ -55,28 +65,39 @@ const PageContainer = styled.div`
   font-family: "Roboto";
   font-size: 24px;
   text-align: center;
-  color: #293845;
   margin-top: 30px;
   padding-top: 70px;
+  a {
+    text-decoration: none;
+    color: #ffffff;
+  }
 `;
 const ListContainer = styled.div`
-  width: 330px;
+  /*   width: 330px; */
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   padding: 10px;
+  align-items: center;
+  justify-content: center;
 `;
 const MovieContainer = styled.div`
   width: 145px;
   height: 210px;
-  box-shadow: 0px 2px 4px 2px #0000001a;
+  /* box-shadow: 0px 2px 4px 2px #0000001a; */
   border-radius: 3px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin: 10px;
   img {
     width: 130px;
     height: 190px;
+  }
+  > p {
+    text-decoration: none;
+    margin-top: 5px;
+    font-size: 10px;
   }
 `;

@@ -43,40 +43,46 @@ export default function SeatsPage() {
 
   return (
     <PageContainer>
-      Selecione o(s) assento(s)
-      <SeatsContainer>
-        {seats.map((seat) => (
-          <SeatItem
-            data-test="seat"
-            key={seat.id}
-            disabled={!seat.isAvailable}
-            isAvailable={seat.isAvailable}
-            onClick={() => selectSeat(seat)}
-            isSelected={selected.some((select) => select.id === seat.id)}>
-            {seat.name}
-          </SeatItem>
-        ))}
-      </SeatsContainer>
-      <CaptionContainer>
-        <CaptionItem>
-          <CaptionCircle isSelected={true} />
-          Selecionado
-        </CaptionItem>
-        <CaptionItem>
-          <CaptionCircle isAvailable={true} />
-          Disponível
-        </CaptionItem>
-        <CaptionItem>
-          <CaptionCircle isAvailable={false} />
-          Indisponível
-        </CaptionItem>
-      </CaptionContainer>
-      <Submit
-        selected={selected}
-        date={date}
-        movie={movie.title}
-        session={session.name}
-      />
+      <h1>Selecione o(s) assento(s)</h1>
+
+      <Content>
+        <div>
+          <SeatsContainer>
+            {seats.map((seat) => (
+              <SeatItem
+                data-test="seat"
+                key={seat.id}
+                disabled={!seat.isAvailable}
+                isAvailable={seat.isAvailable}
+                onClick={() => selectSeat(seat)}
+                isSelected={selected.some((select) => select.id === seat.id)}>
+                {seat.name}
+              </SeatItem>
+            ))}
+          </SeatsContainer>
+          <CaptionContainer>
+            <CaptionItem>
+              <CaptionCircle isSelected={true} />
+              Selecionado
+            </CaptionItem>
+            <CaptionItem>
+              <CaptionCircle isAvailable={true} />
+              Disponível
+            </CaptionItem>
+            <CaptionItem>
+              <CaptionCircle isAvailable={false} />
+              Indisponível
+            </CaptionItem>
+          </CaptionContainer>
+        </div>
+
+        <Submit
+          selected={selected}
+          date={date}
+          movie={movie.title}
+          session={session.name}
+        />
+      </Content>
       <FooterContainer data-test="footer">
         <div>
           <img src={movie.posterURL} alt="poster" />
@@ -92,6 +98,20 @@ export default function SeatsPage() {
   );
 }
 
+const Content = styled.div`
+  display: flex;
+  gap: 5%;
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+  }
+  > div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+`;
+
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -99,7 +119,6 @@ const PageContainer = styled.div`
   font-family: "Roboto";
   font-size: 24px;
   text-align: center;
-  color: #293845;
   margin-top: 30px;
   padding-bottom: 120px;
   padding-top: 70px;
@@ -122,9 +141,9 @@ const CaptionContainer = styled.div`
   margin: 20px;
 `;
 const CaptionCircle = styled.div`
-  border: ${({ isAvailable }) => (isAvailable ? "#7B8B99" : "#F7C52B")};
+  border: ${({ isAvailable }) => (isAvailable ? "#7B8B99" : "#F72B2B")};
   background-color: ${({ isAvailable }) =>
-    isAvailable ? "#C3CFD9" : "#FBE192"};
+    isAvailable ? "#C3CFD9" : "#F24242"};
   height: 25px;
   width: 25px;
   border-radius: 25px;
@@ -147,10 +166,12 @@ const CaptionItem = styled.div`
 `;
 const SeatItem = styled.div`
   border: 1px solid
-    ${({ isAvailable }) => (isAvailable ? "#7B8B99" : "#F7C52B")};
+    ${({ isAvailable }) => (isAvailable ? "#7B8B99" : "#F72B2B")};
   background-color: ${({ isAvailable }) =>
-    isAvailable ? "#C3CFD9" : "#FBE192"};
+    isAvailable ? "#C3CFD9" : "#F24242"};
   height: 25px;
+
+  color: #000000;
   width: 25px;
   border-radius: 25px;
   font-family: "Roboto";
@@ -169,7 +190,7 @@ const SeatItem = styled.div`
 const FooterContainer = styled.div`
   width: 100%;
   height: 120px;
-  background-color: #c3cfd9;
+  background-color: #e8833a;
   display: flex;
   flex-direction: row;
   align-items: center;

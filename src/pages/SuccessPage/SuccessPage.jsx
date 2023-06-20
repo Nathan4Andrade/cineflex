@@ -73,9 +73,10 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   font-family: "Roboto";
   font-size: 24px;
-  color: #293845;
+
   margin: 30px 20px;
   padding-bottom: 120px;
   padding-top: 70px;
@@ -98,10 +99,9 @@ const PageContainer = styled.div`
   }
 `;
 const TextContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   margin-top: 30px;
   strong {
     font-weight: bold;

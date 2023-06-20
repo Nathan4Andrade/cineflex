@@ -24,14 +24,13 @@ export default function SessionsPage() {
 
   return (
     <PageContainer>
-      Selecione o horário
+      <p>Selecione o horário</p>
       <div>
         <SessionContainer>
           {days.map((day) => (
             <div data-test="movie-day" key={day.id}>
-              <p>
-                {day.weekday} - {day.date}
-              </p>
+              <p>{day.weekday}</p>
+              <p>{day.date}</p>
               <ButtonsContainer>
                 {day.showtimes.map((time) => (
                   <Link
@@ -82,22 +81,40 @@ const PageContainer = styled.div`
   flex-direction: column;
   font-family: "Roboto";
   font-size: 24px;
-  text-align: center;
-  color: #293845;
+
   margin-top: 30px;
   padding-bottom: 120px;
   padding-top: 70px;
   div {
     margin-top: 20px;
   }
+  > p {
+    margin-left: 60px;
+  }
+  @media screen and (max-width: 1024px) {
+    text-align: center;
+    > p {
+      margin: 0;
+    }
+  }
 `;
 const SessionContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5%;
   align-items: flex-start;
+  margin: 0 60px;
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    p {
+      text-align: start;
+    }
+  }
   font-family: "Roboto";
   font-size: 20px;
-  color: #293845;
   padding: 0 20px;
 `;
 const ButtonsContainer = styled.div`
@@ -114,7 +131,7 @@ const ButtonsContainer = styled.div`
 const FooterContainer = styled.div`
   width: 100%;
   height: 120px;
-  background-color: #c3cfd9;
+  background-color: #e8833a;
   display: flex;
   flex-direction: row;
   align-items: center;
