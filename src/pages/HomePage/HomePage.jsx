@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
+import Slider from "react-slick";
 
 export default function HomePage() {
   const [movies, setMovies] = useState(null);
@@ -17,6 +18,7 @@ export default function HomePage() {
       console.log(response.data);
     });
   }, []);
+
 
   if (movies === null) {
     return (
@@ -38,7 +40,7 @@ export default function HomePage() {
 
   return (
     <PageContainer>
-      Selecione o filme
+      Selecione o filme:
       <ListContainer>
         {movies.map((movie) => (
           <Link data-test="movie" key={movie.id} to={`/sessoes/${movie.id}`}>
@@ -57,6 +59,7 @@ const Imagem = styled.div`
   margin: 0 auto;
   margin-top: 100px;
 `;
+
 
 const PageContainer = styled.div`
   display: flex;
@@ -91,6 +94,12 @@ const MovieContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   margin: 10px;
+  transition: transform 0.3s ease; // Adiciona uma transição suave para a transformação
+  
+
+  &:hover {
+    transform: translateY(-10px); // Aplica a transformação no hover
+  }
   img {
     width: 130px;
     height: 190px;
